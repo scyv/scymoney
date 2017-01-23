@@ -16,6 +16,14 @@ Router.route('/login', function () {
     this.render('login');
 }, { name: 'login' });
 
+Router.route('/in', function() {
+    this.render('inout');
+}, { name: 'in' });
+
+Router.route('/out', function() {
+    this.render('inout');
+}, { name: 'out' });
+
 /*
 Router.route('/project/:projectId', function () {
     const projectId = this.params.projectId;

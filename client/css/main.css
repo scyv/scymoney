@@ -1,1 +1,18 @@
 /* CSS declarations go here */
+
+.row {
+    margin-bottom: 10px;
+}
+
+.input-group-addon.glyphicon {
+    top: 0;
+}
+
+.header {
+    background: #337ab7;
+    color: #ffffff;
+    font-weight: lighter;
+    padding: 3px;
+    line-height: 2rem;
+    font-size: 2rem;
+}
