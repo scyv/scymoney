@@ -1,18 +1,23 @@
 <template name="inout">
     <div class="row">
         <div class="col-sm-12">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Konto 1</a>
-                <a href="#" class="list-group-item">Konto 2</a>
-                <a href="#" class="list-group-item">Konto 3</a>
-            </div>
+        {{#if accountsLoading}}
+            Laden...
+        {{else}}
+                <div class="list-group">
+                {{#each accounts}}
+                    <span data-id="{{_id}}" class="list-group-item select-account {{accountActive}}">{{name}}</span>
+                {{/each}}
+                </div>
+        {{/if}}
         </div>
     </div>
+    {{#with selectedTX}}
     <div class="row">
         <div class="col-sm-12">
             <div class="input-group">
                 <span class="input-group-addon">€</span>
-                <input type="text" class="form-control" placeholder="Betrag"/>
+                <input id="txamount" type="text" class="form-control" value="{{amount}}" placeholder="Betrag"/>
             </div>
         </div>
     </div>
@@ -20,8 +25,14 @@
         <div class="col-sm-12">
             <div class="input-group">
                 <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                <input type="text" class="form-control" placeholder="Beschreibung"/>
+                <input id="txdescription" type="text" class="form-control" value="{{description}}" placeholder="Beschreibung"/>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-{{btnStyle}} btn-block btn-save">{{type}} Speichern</button>
+        </div>
+    </div>
+    {{/with}}
 </template>

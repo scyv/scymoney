@@ -4,10 +4,8 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './../views/main.html';
 
 export let accountsHandle;
-export let allTransactionsHandle;
 export let transactionsHandle;
-
-AllTransactions = new Mongo.Collection("allTransactions");
+export let tagsHandle;
 
 UI.registerHelper('formattedDate', (date) => {
     if (!date) {
@@ -27,7 +25,7 @@ Meteor.startup(() => {
 
     Tracker.autorun(() => {
         accountsHandle = Meteor.subscribe("moneyAccounts");
-        allTransactionsHandle = Meteor.subscribe("allTansactions");
-        transactionsHandle = Meteor.subscribe("transactions", Session.get('selectedAccount'));
+        transactionsHandle = Meteor.subscribe("transactions");
+        tagsHandle = Meteor.subscribe("tags");
     });
 });

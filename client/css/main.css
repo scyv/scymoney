@@ -8,6 +8,10 @@
     top: 0;
 }
 
+.list-group {
+    margin-bottom: 0;
+}
+
 .header {
     background: #337ab7;
     color: #ffffff;
@@ -15,4 +19,8 @@
     padding: 3px;
     line-height: 2rem;
     font-size: 2rem;
+}
+
+.select-account {
+    cursor: pointer;
 }
