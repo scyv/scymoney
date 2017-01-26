@@ -30,6 +30,7 @@ Template.login.events({
             if (err) {
                 alert("Fehler: " + err, "ERROR");
             } else {
+                Meteor.call("createAccount", "Privat");
                 Router.go('/');
             }
         });
