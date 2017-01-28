@@ -53,7 +53,7 @@ Template.inout.events({
         }
         Meteor.call("saveTx", {
             type: Session.get("selectedTx").type,
-            amount: parseFlsoat(amount),
+            amount: parseFloat(amount),
             account,
             description,
             tags: []

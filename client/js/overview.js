@@ -16,7 +16,7 @@ Template.overview.helpers({
         return Transactions.find({}, {sort: {createdAt: -1}, limit: 10});
     },
     txType() {
-        if (this.type === "out") {
+        if (this.type === "in") {
             return "list-group-item-success";
         }
         return "list-group-item-danger";
