@@ -9,7 +9,7 @@ export const Factory = {
             Session.set("selectedAccount", account);
         }
         return {
-            amount: 0.0,
+            amount: undefined,
             account: account,
             type: type,
             description: "",

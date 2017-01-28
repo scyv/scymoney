@@ -13,7 +13,24 @@
             <ul class="list-group">
                 {{#each accounts}}
                 <li class="list-group-item">
-                    <span class="badge">{{balance}}</span> {{name}}
+                    <span class="badge">{{formattedAmount balance}}</span> {{name}}
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/if}}
+    {{#if transactionsLoading}}
+        Laden...
+    {{else}}
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                {{#each transactions}}
+                <li class="list-group-item {{txType}}">
+                    <span class="badge badge-success">{{formattedAmount amount}}</span>
+                    {{formattedDate createdAt}}
+                    {{description}}
                 </li>
                 {{/each}}
             </ul>

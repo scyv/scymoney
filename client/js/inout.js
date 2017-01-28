@@ -38,15 +38,24 @@ Template.inout.events({
         $('.select-account').removeClass("active");
         $(evt.target).addClass("active");
     },
+    'click .btn-cancel'() {
+        Router.go("/");
+    },
     'click .btn-save'() {
         const account = $(".select-account").data("id");
         const description = $("#txdescription").val();
-        const amount = parseFloat($("#txamount").val());
+        let amount = $("#txamount").val();
+        if (amount.indexOf(",") >= 0) {
+            amount = amount.replace(/,/, ".");
+        }
+        if (amount === "") {
+            return;
+        }
         Meteor.call("saveTx", {
             type: Session.get("selectedTx").type,
+            amount: parseFlsoat(amount),
             account,
             description,
-            amount,
             tags: []
         });
         Router.go("/");

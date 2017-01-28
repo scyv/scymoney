@@ -10,6 +10,7 @@ Meteor.methods({
         if (account) {
             Transactions.insert({
                 userId: this.userId,
+                createdAt: new Date(),
                 amount: tx.amount,
                 account: account._id,
                 type: tx.type === "in" ? "in" : "out",

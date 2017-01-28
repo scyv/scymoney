@@ -6,8 +6,20 @@ Template.overview.helpers({
     accountsLoading() {
         return !accountsHandle.ready() && !transactionsHandle.ready();
     },
+    transactionsLoading() {
+        return !transactionsHandle.ready();
+    },
     accounts() {
         return MoneyAccounts.find();
+    },
+    transactions() {
+        return Transactions.find({}, {sort: {createdAt: -1}, limit: 10});
+    },
+    txType() {
+        if (this.type === "out") {
+            return "list-group-item-success";
+        }
+        return "list-group-item-danger";
     },
     balance() {
         return Transactions.find({account: this._id})
