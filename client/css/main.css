@@ -24,3 +24,7 @@
 .select-account {
     cursor: pointer;
 }
+
+.account-menu i {
+    margin-left: 1.5rem;
+}

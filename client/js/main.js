@@ -22,8 +22,14 @@ UI.registerHelper("formattedAmount", (amount) => {
 });
 
 Template.layout.events({
+    'click .home'() {
+      Router.go("/");
+    },
     'click .btn-logout'() {
         Meteor.logout();
+    },
+    'click .btn-accounts'() {
+        Router.go("/accounts");
     }
 });
 

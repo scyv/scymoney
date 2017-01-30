@@ -1,0 +1,25 @@
+<template name="accounts">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                {{#if accountsLoading}}
+                    Laden...
+                {{else}}
+                {{#each accounts}}
+                    <li class="list-group-item">
+                        {{name}}
+                        <div class="pull-right account-menu">
+                            <i class="glyphicon glyphicon-share share-account"></i>
+                            <i class="glyphicon glyphicon-trash delete-account"></i>
+                            <i class="glyphicon glyphicon-pencil edit-account"></i>
+                        </div>
+                    </li>
+                {{/each}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <button type="button" class="btn col-xs-12 btn-success btn-add-in btn-create-account">Neues Konto anlegen</button>
+    </div>
+</template>

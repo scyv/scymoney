@@ -17,6 +17,14 @@ Router.route('/login', function () {
     this.render('login');
 }, {name: 'login'});
 
+Router.route('/accounts', function () {
+    if (Meteor.userId()) {
+        this.render('accounts');
+    } else {
+        this.render('login');
+    }
+}, {name: 'accounts'});
+
 Router.route('/in', function () {
     if (Meteor.userId()) {
         Session.set("selectedTx", Factory.createTx("in"));
