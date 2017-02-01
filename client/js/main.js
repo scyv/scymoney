@@ -6,6 +6,7 @@ import './../views/main.html';
 export let accountsHandle;
 export let transactionsHandle;
 export let tagsHandle;
+export let connectedUsersHandle;
 
 UI.registerHelper("formattedDate", (date) => {
     if (!date) {
@@ -23,7 +24,7 @@ UI.registerHelper("formattedAmount", (amount) => {
 
 Template.layout.events({
     'click .home'() {
-      Router.go("/");
+        Router.go("/");
     },
     'click .btn-logout'() {
         Meteor.logout();
@@ -40,5 +41,6 @@ Meteor.startup(() => {
         accountsHandle = Meteor.subscribe("moneyAccounts");
         transactionsHandle = Meteor.subscribe("transactions");
         tagsHandle = Meteor.subscribe("tags");
+        connectedUsersHandle = Meteor.subscribe("connectedUsers");
     });
 });

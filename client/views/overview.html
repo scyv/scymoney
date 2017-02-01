@@ -6,7 +6,7 @@
         </div>
     </div>
     {{#if accountsLoading}}
-        Laden...
+        <p>Laden Konten...</p>
     {{else}}
     <div class="row">
         <div class="col-xs-12">
@@ -21,15 +21,15 @@
     </div>
     {{/if}}
     {{#if transactionsLoading}}
-        Laden...
+        <p>Lade Transaktionen...</p>
     {{else}}
     <div class="row">
         <div class="col-xs-12">
-            <ul class="list-group">
+            <ul class="list-group transactions">
                 {{#each transactions}}
                 <li class="list-group-item {{txType}}">
-                    <span class="badge badge-success">{{formattedAmount amount}}</span>
-                    {{formattedDate createdAt}}
+                    <span class="badge {{type}}">{{formattedAmount amount}}</span>
+                    <h6>{{formattedDate createdAt}} - {{user.profile.name}}</h6>
                     {{description}}
                 </li>
                 {{/each}}

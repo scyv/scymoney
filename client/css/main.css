@@ -28,3 +28,13 @@
 .account-menu i {
     margin-left: 1.5rem;
 }
+
+.transactions .badge.out {
+    color: #FFF;
+    background-color: #800000;
+}
+
+.transactions .badge.in {
+    color: #FFF;
+    background-color: #008000;
+}

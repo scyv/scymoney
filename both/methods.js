@@ -27,15 +27,26 @@ Meteor.methods({
     'saveTx'(tx) {
         const account = MoneyAccounts.findOne({_id: tx.account, owners: {$in: [this.userId]}});
         if (account) {
-            Transactions.insert({
-                userId: this.userId,
-                createdAt: new Date(),
-                amount: tx.amount,
-                account: account._id,
-                type: tx.type === "in" ? "in" : "out",
-                description: tx.description,
-                tags: []
-            });
+            if (tx.id) {
+                Transactions.update({_id: tx.id}, {
+                    $set: {
+                        amount: tx.amount,
+                        account: account._id,
+                        description: tx.description,
+                        tags: tx.tags
+                    }
+                });
+            } else {
+                Transactions.insert({
+                    userId: this.userId,
+                    createdAt: new Date(),
+                    amount: tx.amount,
+                    account: account._id,
+                    type: tx.type === "in" ? "in" : "out",
+                    description: tx.description,
+                    tags: tx.tags
+                });
+            }
         }
     }
 });

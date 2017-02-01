@@ -20,10 +20,10 @@ Template.inout.helpers({
         return Session.get("selectedTx");
     },
     btnStyle() {
-        return this.type === 'out'?"danger":"success";
+        return this.type === 'out' ? "danger" : "success";
     },
     type() {
-        return this.type === 'out'?"Ausgabe":"Einnahme";
+        return this.type === 'out' ? "Ausgabe" : "Einnahme";
     },
     tagsLoading() {
         return !tagsHandle.ready();
@@ -42,7 +42,7 @@ Template.inout.events({
         Router.go("/");
     },
     'click .btn-save'() {
-        const account = $(".select-account").data("id");
+        const account = $(".select-account.active").data("id");
         const description = $("#txdescription").val();
         let amount = $("#txamount").val();
         if (amount.indexOf(",") >= 0) {
@@ -52,6 +52,7 @@ Template.inout.events({
             return;
         }
         Meteor.call("saveTx", {
+            id: Session.get("selectedTx")._id,
             type: Session.get("selectedTx").type,
             amount: parseFloat(amount),
             account,

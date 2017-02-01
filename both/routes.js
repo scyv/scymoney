@@ -27,7 +27,6 @@ Router.route('/accounts', function () {
 
 Router.route('/in', function () {
     if (Meteor.userId()) {
-        Session.set("selectedTx", Factory.createTx("in"));
         this.render('inout');
     } else {
         this.render('login');
@@ -36,7 +35,6 @@ Router.route('/in', function () {
 
 Router.route('/out', function () {
     if (Meteor.userId()) {
-        Session.set("selectedTx", Factory.createTx("out"));
         this.render('inout');
     } else {
         this.render('login');

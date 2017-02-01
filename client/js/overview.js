@@ -1,25 +1,30 @@
 import { Template } from 'meteor/templating';
 import { accountsHandle } from './main';
 import { transactionsHandle } from './main';
+import { connectedUsersHandle } from './main';
 
 Template.overview.helpers({
     accountsLoading() {
         return !accountsHandle.ready() && !transactionsHandle.ready();
     },
     transactionsLoading() {
-        return !transactionsHandle.ready();
+        return !transactionsHandle.ready() && !connectedUsersHandle.ready();
+        ;
     },
     accounts() {
         return MoneyAccounts.find();
     },
     transactions() {
-        return Transactions.find({}, {sort: {createdAt: -1}, limit: 10});
+        return Transactions.find({}, {sort: {createdAt: -1}, limit: 100});
     },
     txType() {
         if (this.type === "in") {
             return "list-group-item-success";
         }
         return "list-group-item-danger";
+    },
+    user() {
+        return Meteor.users.findOne(this.userId);
     },
     balance() {
         return Transactions.find({account: this._id})
@@ -35,10 +40,16 @@ Template.overview.helpers({
 });
 
 Template.overview.events({
-    'click .btn-add-in': () => {
+    'click .btn-add-in'() {
+        Session.set("selectedTx", Factory.createTx("in"));
         Router.go('/in');
     },
-    'click .btn-add-out': () => {
+    'click .btn-add-out'() {
+        Session.set("selectedTx", Factory.createTx("out"));
         Router.go('/out');
+    },
+    'click .transactions .list-group-item'() {
+        Session.set("selectedTx", this);
+        Router.go("/" + this.type);
     }
 });

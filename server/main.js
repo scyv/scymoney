@@ -5,22 +5,46 @@ Meteor.startup(() => {
 });
 
 Meteor.publish("transactions", function () {
-    const accounts = MoneyAccounts.find({owners: {$in: [this.userId]}});
-    const accountNrs = [];
-    accounts.forEach(function (account) {
-        accountNrs.push(account._id);
-    });
-    return Transactions.find({account: {$in: accountNrs}}); //, {fields: {secretInfo: 0}});
+    if (this.userId) {
+        const accounts = MoneyAccounts.find({owners: {$in: [this.userId]}});
+        const accountNrs = [];
+        accounts.forEach(function (account) {
+            accountNrs.push(account._id);
+        });
+        return Transactions.find({account: {$in: accountNrs}}); //, {fields: {secretInfo: 0}});
+    } else {
+        this.ready();
+    }
 });
 
 
 Meteor.publish("tags", function () {
-    return Tags.find({userId: this.userId}); //, {fields: {secretInfo: 0}});
+    if (this.userId) {
+        return Tags.find({userId: this.userId}); //, {fields: {secretInfo: 0}});
+    } else {
+        this.ready();
+    }
 });
 
 
 Meteor.publish("moneyAccounts", function () {
-    return MoneyAccounts.find({owners: {$in: [this.userId]}}); //, {fields: {secretInfo: 0}});
+    if (this.userId) {
+        return MoneyAccounts.find({owners: {$in: [this.userId]}}); //, {fields: {secretInfo: 0}});
+    } else {
+        this.ready();
+    }
+});
+
+Meteor.publish("connectedUsers", function () {
+    if (this.userId) {
+        let users = [];
+        MoneyAccounts.find({owners: {$in: [this.userId]}}).forEach((account)=> {
+            users = users.concat(account.owners);
+        });
+        return Meteor.users.find({_id: {$in: users}}, {fields: {'profile': 1}});
+    } else {
+        this.ready();
+    }
 });
 
 
