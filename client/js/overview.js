@@ -1,4 +1,6 @@
 import { Template } from 'meteor/templating';
+
+import { Factory } from '../../both/factory';
 import { accountsHandle } from './main';
 import { transactionsHandle } from './main';
 import { connectedUsersHandle } from './main';

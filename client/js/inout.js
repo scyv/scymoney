@@ -2,6 +2,10 @@ import { Template } from 'meteor/templating';
 import { tagsHandle } from './main';
 import { accountsHandle } from './main';
 
+Template.inout.onRendered(function(){
+    $("#txamount").focus();
+});
+
 Template.inout.helpers({
     accountsLoading() {
         return !accountsHandle.ready();

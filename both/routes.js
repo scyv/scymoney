@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor'
-import { Factory } from './factory';
 
 Router.configure({
     layoutTemplate: 'layout',
@@ -40,25 +39,3 @@ Router.route('/out', function () {
         this.render('login');
     }
 }, {name: 'out'});
-
-/*
- Router.route('/project/:projectId', function () {
- const projectId = this.params.projectId;
- Meteor.subscribe("projects", projectId);
- Session.set('selectedProject', projectId);
- this.render('sprints');
- }, { name: 'sprints' });
-
- Router.route('/sprint/:sprintId', function () {
- const sprintId = this.params.sprintId;
- Meteor.subscribe("singleSprint", sprintId, () => {
- const projectId = Sprints.findOne().projectId;
- Meteor.subscribe("projects", projectId, () => {
- Session.set('selectedProject', projectId);
- });
- });
- Session.set('selectedSprint', sprintId);
- this.render('availabilities');
- }, { name: 'availabilities' });
-
- */
