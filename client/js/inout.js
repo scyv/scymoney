@@ -50,8 +50,9 @@ Template.inout.events({
         const description = $("#txdescription").val();
         let amount = $("#txamount").val();
         if (amount.indexOf(",") >= 0) {
-            amount = amount.replace(/,/, ".");
+            amount = amount.replace(/,/g, ".");
         }
+        console.log(amount);
         if (amount === "") {
             return;
         }

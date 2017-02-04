@@ -17,7 +17,7 @@
         <div class="col-sm-12">
             <div class="input-group">
                 <span class="input-group-addon glyphicon glyphicon-euro"></span>
-                <input id="txamount" type="number" class="form-control" autofocus value="{{amount}}" placeholder="Betrag"/>
+                <input id="txamount" type="number" step="0.01" lang="en" class="form-control" autofocus value="{{amount}}" placeholder="Betrag"/>
             </div>
         </div>
     </div>
@@ -35,6 +35,26 @@
         </div>
         <div class="col-xs-6">
             <button class="btn btn-{{btnStyle}} btn-block btn-save">{{type}} Speichern</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{#if tagsLoading}}
+                Laden...
+            {{else}}
+                <div class="list-group">
+                    {{#each tags}}
+                        <span data-id="{{_id}}" class="list-group-item select-tag {{tagActive}}">{{name}}</span>
+                    {{/each}}
+                </div>
+
+                <div class="input-group">
+                    <input class="form-control" type="text" id="newTag" placeholder="Neue Kategorie anlegen" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                      </span>
+                </div>
+            {{/if}}
         </div>
     </div>
     {{/with}}
