@@ -20,7 +20,13 @@ Meteor.publish("transactions", function () {
 
 Meteor.publish("tags", function () {
     if (this.userId) {
-        return Tags.find({userId: this.userId}); //, {fields: {secretInfo: 0}});
+        const accounts = MoneyAccounts.find({owners: {$in: [this.userId]}});
+        let accountOwners = [this.userId];
+        accounts.forEach(function (account) {
+            accountOwners = _.union(accountOwners, account.owners);
+        });
+
+        return Tags.find({userId: {$in : accountOwners}}); //, {fields: {secretInfo: 0}});
     } else {
         this.ready();
     }

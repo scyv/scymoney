@@ -21,7 +21,7 @@
     font-size: 2rem;
 }
 
-.select-account {
+.select-account, .select-tag, .header .home, .header .tools {
     cursor: pointer;
 }
 
@@ -37,4 +37,8 @@
 .transactions .badge.in {
     color: #FFF;
     background-color: #008000;
+}
+
+.newTag {
+    margin-top: 10px;
 }

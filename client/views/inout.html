@@ -44,14 +44,14 @@
             {{else}}
                 <div class="list-group">
                     {{#each tags}}
-                        <span data-id="{{_id}}" class="list-group-item select-tag {{tagActive}}">{{name}}</span>
+                        <span data-id="{{_id}}" class="list-group-item select-tag {{tagActive ..}}">{{name}}</span>
                     {{/each}}
                 </div>
 
-                <div class="input-group">
+                <div class="input-group newTag">
                     <input class="form-control" type="text" id="newTag" placeholder="Neue Kategorie anlegen" />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button class="btn btn-default btn-add-tag" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                       </span>
                 </div>
             {{/if}}

@@ -48,5 +48,26 @@ Meteor.methods({
                 });
             }
         }
+    },
+    'addTag'(tagName) {
+        const accounts = MoneyAccounts.find({owners: {$in: [this.userId]}});
+        let accountOwners = [this.userId];
+        accounts.forEach(function (account) {
+            accountOwners = _.union(accountOwners, account.owners);
+        });
+
+        const tag = Tags.findOne({name: {$regex: new RegExp(tagName, "i")}, userId: {$in: accountOwners}});
+        if (tag) {
+            return;
+        }
+
+        Tags.insert({
+            userId: this.userId,
+            lastUsed: new Date(),
+            name: tagName
+        });
+    },
+    'updateTagUsage'(tags) {
+        Tags.update({_id: {$in: tags}}, {$set: {lastUsed: new Date()}}, {multi: true});
     }
 });

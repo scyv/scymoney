@@ -2,7 +2,7 @@ import { Template } from 'meteor/templating';
 import { tagsHandle } from './main';
 import { accountsHandle } from './main';
 
-Template.inout.onRendered(function(){
+Template.inout.onRendered(function () {
     $("#txamount").focus();
 });
 
@@ -15,7 +15,7 @@ Template.inout.helpers({
     },
     accountActive() {
         const selectedTx = Session.get("selectedTx");
-        if (this._id === selectedTx.account) {
+        if (selectedTx && this._id === selectedTx.account) {
             return "active";
         }
         return "";
@@ -33,7 +33,10 @@ Template.inout.helpers({
         return !tagsHandle.ready();
     },
     tags() {
-        return Tags.find();
+        return Tags.find({}, {sort: {name: 1}});
+    },
+    tagActive(ctx) {
+        return ctx.tags.indexOf(this._id) >= 0 ? "active": "";
     }
 });
 
@@ -41,6 +44,23 @@ Template.inout.events({
     'click .select-account'(evt) {
         $('.select-account').removeClass("active");
         $(evt.target).addClass("active");
+    },
+    'click .select-tag'(evt) {
+        $(evt.target).toggleClass("active");
+    },
+    'click .btn-add-tag'() {
+        const newTagInput = $("#newTag");
+        const tagName = newTagInput.val().trim();
+        if (tagName !== "") {
+            Meteor.call("addTag", tagName, ()=> {
+                $(".select-tag").each((idx, elem) => {
+                    if (elem.textContent.toLocaleLowerCase() === tagName.toLocaleLowerCase()) {
+                        $(elem).addClass("active");
+                    }
+                });
+            });
+            newTagInput.val("");
+        }
     },
     'click .btn-cancel'() {
         Router.go("/");
@@ -52,18 +72,39 @@ Template.inout.events({
         if (amount.indexOf(",") >= 0) {
             amount = amount.replace(/,/g, ".");
         }
-        console.log(amount);
         if (amount === "") {
             return;
         }
+
+        const tags = [];
+        $(".select-tag.active").each((idx, elem)=> {
+            tags.push($(elem).data("id"));
+        });
+
         Meteor.call("saveTx", {
             id: Session.get("selectedTx")._id,
             type: Session.get("selectedTx").type,
             amount: parseFloat(amount),
             account,
             description,
-            tags: []
+            tags: tags
         });
+        Meteor.call("updateTagUsage", tags);
         Router.go("/");
+    },
+    'keydown #newTag'(evt) {
+        if (evt.keyCode === 13) {
+            $(".btn-add-tag").click();
+        }
+    },
+    'keydown #txamount'(evt) {
+        if (evt.keyCode === 13) {
+            $("#txdescription").focus();
+        }
+    },
+    'keydown #txdescription'(evt) {
+        if (evt.keyCode === 13) {
+            $("#newTag").focus();
+        }
     }
 });
