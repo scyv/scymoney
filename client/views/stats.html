@@ -1,3 +1,28 @@
 <template name="stats">
-
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                <input id="dateRange" type="text" class="form-control" placeholder="Datum von bis"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                {{#if transactionsLoading}}
+                    <p>Lade Transaktionen...</p>
+                {{else}}
+                    {{#each months}}
+                        <span class="list-group-item active">{{month}}</span>
+                        {{#each tags}}
+                            <li class="list-group-item">
+                                <span class="badge">{{formattedAmount balance}}</span> {{name}}
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
 </template>
