@@ -32,6 +32,7 @@ Meteor.methods({
                     $set: {
                         amount: tx.amount,
                         account: account._id,
+                        createdAt: tx.createdAt,
                         description: tx.description,
                         tags: tx.tags
                     }
@@ -39,7 +40,7 @@ Meteor.methods({
             } else {
                 Transactions.insert({
                     userId: this.userId,
-                    createdAt: new Date(),
+                    createdAt: tx.createdAt,
                     amount: tx.amount,
                     account: account._id,
                     type: tx.type === "in" ? "in" : "out",

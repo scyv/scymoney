@@ -4,6 +4,56 @@ import { accountsHandle } from './main';
 
 Template.inout.onRendered(function () {
     $("#txamount").focus();
+    const dateInput = $("#txdate");
+
+    dateInput.daterangepicker({
+        singleDatePicker: true,
+        "showWeekNumbers": true,
+        "locale": {
+            "format": "DD.MM.YYYY",
+            "separator": " - ",
+            "applyLabel": "Ok",
+            "cancelLabel": "Abbruch",
+            "fromLabel": "Von",
+            "toLabel": "Bis",
+            "customRangeLabel": "Benutzerdef.",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "So",
+                "Mo",
+                "Di",
+                "Mi",
+                "Do",
+                "Fr",
+                "Sa"
+            ],
+            "monthNames": [
+                "Januar",
+                "Februar",
+                "März",
+                "April",
+                "Mai",
+                "Juni",
+                "Juli",
+                "August",
+                "September",
+                "Oktober",
+                "November",
+                "Dezember"
+            ],
+            "firstDay": 1
+        }
+    });
+
+    const dateRange = dateInput.data("daterangepicker");
+    if (dateRange) {
+        const selectedTx = Session.get("selectedTx");
+        dateRange.startDate = moment(selectedTx.createdAt);
+        dateRange.endDate = moment(selectedTx.createdAt);
+        const format = dateRange.locale.format;
+        dateInput.val(moment(selectedTx.createdAt).format(format));
+    }
+
 });
 
 Template.inout.helpers({
@@ -36,7 +86,7 @@ Template.inout.helpers({
         return Tags.find({}, {sort: {name: 1}});
     },
     tagActive(ctx) {
-        return ctx.tags.indexOf(this._id) >= 0 ? "active": "";
+        return ctx.tags.indexOf(this._id) >= 0 ? "active" : "";
     }
 });
 
@@ -44,6 +94,7 @@ Template.inout.events({
     'click .select-account'(evt) {
         $('.select-account').removeClass("active");
         $(evt.target).addClass("active");
+        $("#txamount").focus();
     },
     'click .select-tag'(evt) {
         $(evt.target).toggleClass("active");
@@ -81,10 +132,13 @@ Template.inout.events({
             tags.push($(elem).data("id"));
         });
 
+        const dateRange = $("#txdate").data("daterangepicker");
+        const selectedTx = Session.get("selectedTx");
         Meteor.call("saveTx", {
-            id: Session.get("selectedTx")._id,
-            type: Session.get("selectedTx").type,
+            id: selectedTx._id,
+            type: selectedTx.type,
             amount: parseFloat(amount),
+            createdAt: dateRange.startDate.toDate(),
             account,
             description,
             tags: tags

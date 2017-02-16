@@ -27,7 +27,7 @@
         <div class="col-xs-12">
             <ul class="list-group transactions">
                 {{#each transactions}}
-                <li class="list-group-item {{txType}}">
+                <li class="list-group-item">
                     <span class="badge {{type}}">{{formattedAmount amount}}</span>
                     <h6>{{formattedDate createdAt}} - {{user.profile.name}}</h6>
                     {{description}}

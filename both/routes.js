@@ -39,3 +39,11 @@ Router.route('/out', function () {
         this.render('login');
     }
 }, {name: 'out'});
+
+Router.route('/stats', function () {
+    if (Meteor.userId()) {
+        this.render('stats');
+    } else {
+        this.render('login');
+    }
+}, {name: 'stats'});

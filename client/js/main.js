@@ -31,6 +31,9 @@ Template.layout.events({
     },
     'click .btn-accounts'() {
         Router.go("/accounts");
+    },
+    'click .btn-stats'() {
+        Router.go("/stats");
     }
 });
 

@@ -11,6 +11,7 @@ export const Factory = {
         return {
             amount: undefined,
             account: account,
+            createdAt: new Date(),
             type: type,
             description: "",
             tags: []

@@ -11,19 +11,12 @@ Template.overview.helpers({
     },
     transactionsLoading() {
         return !transactionsHandle.ready() && !connectedUsersHandle.ready();
-        ;
     },
     accounts() {
         return MoneyAccounts.find();
     },
     transactions() {
         return Transactions.find({}, {sort: {createdAt: -1}, limit: 100});
-    },
-    txType() {
-        if (this.type === "in") {
-            return "list-group-item-success";
-        }
-        return "list-group-item-danger";
     },
     user() {
         return Meteor.users.findOne(this.userId);
