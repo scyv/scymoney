@@ -1,5 +1,9 @@
 /* CSS declarations go here */
 
+body {
+    padding-top: 6rem;
+}
+
 .row {
     margin-bottom: 10px;
 }
@@ -19,6 +23,10 @@
     padding: 1rem;
     line-height: 2.5rem;
     font-size: 2.5rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .header .tools i {
