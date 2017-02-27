@@ -8,17 +8,17 @@
 
 <template name="layout">
     <div class="container-fluid">
-        {{#if currentUser}}
-            <div class="row header">
+        <div class="row header">
                 <div class="col-sm-12">
-                    <span class="home">// SCYMONEY</span>
+                <span class="home">// SCYMONEY</span>
+                {{#if currentUser}}
                     <div class="pull-right tools">
                         <i class="glyphicon glyphicon-stats btn-stats"></i>
                         <i class="glyphicon glyphicon-piggy-bank btn-accounts"></i>
                     </div>
-                </div>
+                {{/if}}
             </div>
-        {{/if}}
+        </div>
         {{> yield}}
     </div>
 </template>

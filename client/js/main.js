@@ -8,6 +8,12 @@ export let transactionsHandle;
 export let tagsHandle;
 export let connectedUsersHandle;
 
+Accounts.onResetPasswordLink((token) => {
+    window.setTimeout(()=>{
+        Router.go("resetPassword", {token});
+    }, 500);
+});
+
 UI.registerHelper("formattedDate", (date) => {
     if (!date) {
         return "-";

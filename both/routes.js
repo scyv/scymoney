@@ -47,3 +47,12 @@ Router.route('/stats', function () {
         this.render('login');
     }
 }, {name: 'stats'});
+
+Router.route("/resetPasswordMailSent", function() {
+    this.render("resetPasswordMailSent")
+}, {name: 'resetPasswordMailSent'});
+
+Router.route("/resetPassword/:token", function() {
+    Session.set("password-reset-token", this.params.token);
+    this.render("resetPassword")
+}, {name: 'resetPassword'});

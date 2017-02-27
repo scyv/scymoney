@@ -13,7 +13,6 @@ Template.login.events({
         });
     },
     'click #btnRegister': () => {
-
         var email = $('#regEmailInput').val();
         var password = $('#regPasswordInput').val();
         var name = $('#regNameInput').val();
@@ -32,6 +31,22 @@ Template.login.events({
             } else {
                 Meteor.call("createAccount", "Privat");
                 Router.go('/');
+            }
+        });
+    },
+    'click #btnResetPassword': () => {
+        var email = $('#emailInput').val();
+        if (!email || email.trim() === "") {
+            alert("Bitte geben Sie Ihre Email Adresse an");
+            return;
+        }
+        Accounts.forgotPassword({
+            email
+        }, (err) => {
+            if (err) {
+                alert("Fehler: " + err, "ERROR");
+            } else {
+                Router.go("resetPasswordMailSent");
             }
         });
     }
