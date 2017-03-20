@@ -29,8 +29,8 @@
                 {{#each transactions}}
                 <li class="list-group-item">
                     <span class="badge {{type}}">{{formattedAmount amount}}</span>
-                    <h6>{{formattedDate createdAt}} - {{user.profile.name}}</h6>
-                    {{description}}
+                    <h6 class="text-muted">{{formattedDate createdAt}} - {{user.profile.name}}</h6>
+                    <span class="badge inline info">{{tags}}</span> {{description}}
                 </li>
                 {{/each}}
             </ul>

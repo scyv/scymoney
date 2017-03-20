@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 
 import { Factory } from '../../both/factory';
 import { accountsHandle } from './main';
+import { tagsHandle } from './main';
 import { transactionsHandle } from './main';
 import { connectedUsersHandle } from './main';
 
@@ -10,7 +11,7 @@ Template.overview.helpers({
         return !accountsHandle.ready() && !transactionsHandle.ready();
     },
     transactionsLoading() {
-        return !transactionsHandle.ready() && !connectedUsersHandle.ready();
+        return !transactionsHandle.ready() && !connectedUsersHandle.ready() &&!tagsHandle.ready();
     },
     accounts() {
         return MoneyAccounts.find();
@@ -31,6 +32,11 @@ Template.overview.helpers({
                 }
                 return pre + factor * Math.abs(tx.amount);
             }, 0);
+    },
+    tags() {
+        return this.tags.map(tagId=>{
+            return Tags.findOne({_id: tagId}).name;
+        }).join(", ");
     }
 });
 

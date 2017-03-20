@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
     // code to run on server at startup
+    Accounts.emailTemplates.siteName = "SCYMONEY";
+    Accounts.emailTemplates.from = "SCYMONEY <scymoney@mailgun.scytec.de>";
 });
 
 Meteor.publish("transactions", function () {

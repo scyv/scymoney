@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row statistics">
         <div class="col-sm-12">
             <div class="list-group">
                 {{#if transactionsLoading}}
@@ -17,7 +17,7 @@
                         <span class="list-group-item active">{{month}}</span>
                         {{#each tags}}
                             <li class="list-group-item">
-                                <span class="badge">{{formattedAmount balance}}</span> {{name}}
+                                <span class="badge">{{formattedAmount balance}} / {{formattedAmount average}}</span> {{name}}
                             </li>
                         {{/each}}
                     {{/each}}

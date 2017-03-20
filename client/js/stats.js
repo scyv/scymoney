@@ -37,7 +37,10 @@ Template.stats.helpers({
         }).fetch(), tx => {
             return moment(tx.createdAt).format("YYYYMM");
         });
+        let monthIndex = 0;
+        const tagSum = {};
         return Object.keys(months).sort().map((dateGroup)=> {
+            monthIndex++;
             const year = dateGroup.substr(0, 4);
             const monthName = moment().month(parseInt(dateGroup.substr(4)) - 1).format("MMMM")
             const flat = [];
@@ -46,9 +49,9 @@ Template.stats.helpers({
                     flat.push(_.clone(tx));
                 }
                 tx.tags.forEach((tag)=> {
-                    const tagClone = _.clone(tx);
-                    tagClone.tag = tag;
-                    flat.push(tagClone);
+                    const txClone = _.clone(tx);
+                    txClone.tag = tag;
+                    flat.push(txClone);
                 });
             });
             const tags = (_.groupBy(flat, (tx)=> {
@@ -59,9 +62,15 @@ Template.stats.helpers({
                 return resolvedTag.name;
             }));
             const tagsArray = Object.keys(tags).sort().map((tagName) => {
+                const balance = tags[tagName].reduce(sumFunc, 0);
+                if (!tagSum[tagName]) {
+                    tagSum[tagName] = 0;
+                }
+                tagSum[tagName] += balance;
                 return {
                     name: tagName,
-                    balance: tags[tagName].reduce(sumFunc, 0)
+                    balance: balance,
+                    average: tagSum[tagName] / monthIndex
                 };
             });
             return {
